@@ -15,7 +15,7 @@
 7. [Docked Windows](https://github.com/mjsyp/ancr-gui#docked-windows)
 
 
-## Requirements/Setup
+## Requirements/Setu
 * requires: Python 2.7
 * install external modules: networkX, matplotlib, Pillow
 * clone github.com/mjsyp/ancr-gui in your preferred working directory
