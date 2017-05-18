@@ -22,6 +22,7 @@ try:
 	from sys import platform as _platform
 	import sys
 	import matplotlib.pyplot as plt
+	import subprocess
 
 	# make sure modules used in other files are imported
 	import tkSimpleDialog
@@ -181,6 +182,34 @@ class Window(Frame):
 		analysisTab.add_command(label="Node Degrees", command=self.geoCanvas.dockedWindows.nodeDegrees)
 		analysisTab.add_command(label='Centrality', command=self.geoCanvas.dockedWindows.centrality)
 		menubar.add_cascade(label="Analysis", menu=analysisTab)
+                
+		#Added Functionality for Demo Tab
+		def JSON_Retrieve():
+                        """This function asks for the JSON File, this will be replaced by the output from the network eventually"""
+                        global JSON_file
+                        JSON_file = tkFileDialog.askopenfilename()
+                
+                def ANCR_Retrieve():
+                        """This function asks for the ANCR_to_3dm File"""
+                        global ANCR_file
+                        ANCR_file = tkFileDialog.askopenfilename()
+                    
+                def RHINO_Retrieve():
+                        """This function asks for the Rhino.exe File"""
+                        global RHINO_file
+                        RHINO_file = tkFileDialog.askopenfilename()
+                    
+                def EXPORT_TO_RHINO():
+                        """This function runs a subprocess of the command string which prompts the ANCR_file to begin running"""
+                        command_string = 'python "{}" "{}" "{}"'.format(ANCR_file, RHINO_file, JSON_file)
+                        subprocess.call(command_string)
+                #Demo Tab
+                demoTab = Menu(menubar, tearoff=0)
+                demoTab.add_command(label="JSON Select", command=JSON_Retrieve)
+                demoTab.add_command(label="ANCR Select", command=ANCR_Retrieve)
+                demoTab.add_command(label="RHINO Select", command=RHINO_Retrieve)
+                demoTab.add_command(label="Run Demo", command=EXPORT_TO_RHINO)
+                menubar.add_cascade(label="Demo", menu=demoTab)
 
 	def initUI(self):
 		self.parent.title("ANCR-GUI")
